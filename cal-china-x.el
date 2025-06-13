@@ -1,3 +1,5 @@
+;;; cal-china-x.el --- Chinese calendar extensions for Org -*- lexical-binding: t; -*-
+
 ;;; cal-china-x.el --- Chinese localization, lunar/horoscope/zodiac info and more...
 
 ;; Copyright (C) 2006-2013, 2015 William Xu
@@ -354,7 +356,7 @@ See `cal-china-x-solar-term-name' for a list of solar term names ."
 (defun cal-china-x-calendar-display-form (date)
   (if (equal date '(0 0 0))
       ""
-    (format "%04d年%02d月%02d日 %s"
+    (format "%04d 年%02d 月%02d 日 %s"
             (calendar-extract-year date)
             (calendar-extract-month date)
             (calendar-extract-day date)
@@ -366,7 +368,7 @@ See `cal-china-x-solar-term-name' for a list of solar term names ."
          (cn-year  (cadr   cn-date))
          (cn-month (cl-caddr  cn-date))
          (cn-day   (cl-cadddr cn-date)))
-    (format "%s%s年%s%s%s%s(%s)"
+    (format "%s%s 年%s%s%s%s(%s)"
             (calendar-chinese-sexagesimal-name cn-year)
             (aref cal-china-x-zodiac-name (% (1- cn-year) 12))
             (aref cal-china-x-month-name (1-  (floor cn-month)))
@@ -386,7 +388,7 @@ See `cal-china-x-solar-term-name' for a list of solar term names ."
   (setq calendar-chinese-celestial-stem cal-china-x-celestial-stem
         calendar-chinese-terrestrial-branch cal-china-x-terrestrial-branch)
 
-  (setq calendar-month-header '(propertize (format "%d年%2d月" year month)
+  (setq calendar-month-header '(propertize (format "%d 年%2d 月" year month)
                                            'font-lock-face
                                            'calendar-month-header))
 
@@ -411,7 +413,7 @@ See `cal-china-x-solar-term-name' for a list of solar term names ."
          '(cal-china-x-get-holiday date)
 
          '(concat " " (calendar-date-string date t)
-                  (format " 第%d周"
+                  (format " 第%d 周"
                           (funcall (if cal-china-x-custom-week-start-date
                                        'cal-china-x-custom-week-of-date
                                      'cal-china-x-week-of-date)
@@ -480,7 +482,7 @@ in a week."
                 (cadr (assoc 1 (calendar-chinese-year y))))))
           (if (calendar-date-is-visible-p chinese-new-year)
 	      `((,chinese-new-year
-                 ,(format "%s年春节"
+                 ,(format "%s 年春节"
                           (calendar-chinese-sexagesimal-name
                            (+ y 57))))))))))
 
